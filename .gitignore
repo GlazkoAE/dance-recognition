@@ -155,3 +155,4 @@ cython_debug/
 .idea/
 
 *.mp4
+*.csv
