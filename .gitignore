@@ -154,5 +154,8 @@ cython_debug/
 
 .idea/
 
+*.zip
+*.rar
 *.mp4
 *.csv
+!dance*.csv
