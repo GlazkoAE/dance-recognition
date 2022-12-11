@@ -157,5 +157,6 @@ cython_debug/
 *.zip
 *.rar
 *.mp4
-*.csv
-!dance*.csv
+data/train.csv
+data/test.csv
+data/validate.csv
