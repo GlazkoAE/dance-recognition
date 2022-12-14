@@ -158,6 +158,3 @@ cython_debug/
 *.rar
 *.mp4
 data/images/*
-data/train.csv
-data/test.csv
-data/validate.csv
