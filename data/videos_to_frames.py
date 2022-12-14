@@ -19,33 +19,43 @@ Source: https://github.com/RaivoKoot/Video-Dataset-Loading-Pytorch
 """
 
 
-def video_to_rgb(video_filename: Path, out_dir: Path):
-    reader = imageio.get_reader(video_filename)
+def video_to_rgb(video_filepath: Path, out_dir: Path):
+    reader = imageio.get_reader(video_filepath)
 
-    for frame_number, im in enumerate(reader):
-        out_filepath = out_dir / f'frame_{frame_number}.jpg'
-        if not out_filepath.is_file():
-            imageio.imwrite(out_filepath, im)
+    if len(reader) > len(os.listdir(out_dir)):
+        for frame_number, im in enumerate(reader):
+            out_filepath = out_dir / f'frame_{frame_number}.jpg'
+            if not out_filepath.is_file():
+                imageio.imwrite(out_filepath, im)
 
 
 def process_videofile(
         video_filename: str,
-        video_path: Path,
+        video_dir_path: Path,
         rgb_out_path: Path,
-        file_extension: str = '.mp4'
+        file_extension='.mp4',
+        delete_video=False,
 ):
-    filepath = video_path / video_filename
+    filepath = video_dir_path / video_filename
     video_filename = video_filename.replace(file_extension, '')
 
     out_dir = rgb_out_path / video_filename
     out_dir.mkdir(parents=True, exist_ok=True)
     video_to_rgb(filepath, out_dir)
+    if delete_video:
+        filepath.unlink()
 
 
 def thread_job(queue, video_path, rgb_out_path, file_extension='.mp4'):
     while not queue.empty():
         video_filename = queue.get()
-        process_videofile(video_filename, video_path, rgb_out_path, file_extension=file_extension)
+        process_videofile(
+            video_filename,
+            video_path,
+            rgb_out_path,
+            file_extension=file_extension,
+            delete_video=True,
+        )
         queue.task_done()
 
 
