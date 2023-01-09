@@ -55,7 +55,9 @@ def main(pattern="dancing"):
             if not cropped_video_path.is_file():
                 try:
                     download_video_by_id(
-                        yt_id=yt_id, save_dir=save_videos_dir, save_filename=full_video_name
+                        yt_id=yt_id,
+                        save_dir=save_videos_dir,
+                        save_filename=full_video_name,
                     )
                     crop_video(
                         in_path=full_video_path,
@@ -79,15 +81,13 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         prog="Kinetics 700-2020 videos downloader",
         description="Download videos from YouTube for Kinetics 700-2020 "
-                    "dataset with any pattern and save new .csv labels",
+        "dataset with any pattern and save new .csv labels",
     )
-
     parser.add_argument(
         "pattern",
         type=str,
         help="label pattern (example: 'dancing' for download all dancing videos)",
     )
     args = parser.parse_args()
-    print(args.pattern)
 
     main(pattern=args.pattern)
