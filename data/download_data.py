@@ -64,7 +64,7 @@ def main(pattern="dancing"):
                         out_path=cropped_video_path,
                         start_time=start_time,
                         end_time=end_time,
-                        delete_orig=False,
+                        delete_orig=True,
                     )
                 except KeyboardInterrupt:
                     return
