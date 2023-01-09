@@ -68,7 +68,7 @@ def main(pattern="dancing"):
                     )
                 except KeyboardInterrupt:
                     return
-                except:
+                except Exception:
                     target_df = target_df.drop([index])
 
         target_df = target_df.drop(["time_start", "time_end", "split"], axis=1)
